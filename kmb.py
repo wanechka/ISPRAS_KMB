@@ -17,7 +17,7 @@ if "-s" in sys.argv:
         connectionSocket, addr = serverSocket.accept()
         if addr[0] == host:
             print("request from host:", addr)
-            connectionSocket.sendall((addr[0] + ':' + addr[1]).encode())
+            connectionSocket.sendall((str(addr[0]) + ':' + str(addr[1])).encode())
 
     connectionSocket.close()
 
