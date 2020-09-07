@@ -1,14 +1,16 @@
 from socket import *
 import sys
 
-print("Enter host IP or type")
-host = input()
+#print("Enter host IP or type")
+#host = input()
 
-print("Enter port")
-port = int(input())
+host = sys.argv[2]
+port = int(sys.argv[3])
 
 if "-s" in sys.argv:
     serverSocket = socket(AF_INET, SOCK_STREAM)
+
+
 
     serverSocket.bind(('', port))
     serverSocket.listen(1)
