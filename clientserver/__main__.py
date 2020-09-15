@@ -1,7 +1,9 @@
-from tcp import server_tcp, client_tcp
-from udp import server_udp, client_udp
+import tcp
+import udp
+
 
 import argparse
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -20,13 +22,13 @@ if __name__ == "__main__":
     
     if args.server:
         if args.udp_connect:
-            server_udp(host, port)
+            udp.server(host, port)
         else:
-            server_tcp(host, port)
+            tcp.server(host, port)
 
     
     if args.client:
         if args.udp_connect:
-            client_udp(host, port)
+            udp.client(host, port)
         else:
-            clietn_tcp(host, port)
+            tcp.client(host, port)

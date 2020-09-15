@@ -1,25 +1,24 @@
 from socket import *
 
-def server_tcp(host, port):
+
+def server(host, port):
     serverSocket = socket(AF_INET, SOCK_STREAM)
     
-    serverSocket.bind(('', port))
+    serverSocket.bind((host, port))
     serverSocket.listen(1)
     
-    while 1:
+    while True:
         connectionSocket, addr = serverSocket.accept()
         
-        if addr[0] == host:
-                print("request from host:", addr)
-                
-                resp_msg = f'{addr[0]}:{addr[1]}'
-                connectionSocket.sendall(resp_msg.encode())
-                
-                connectionSocket.close()
+        print("request from host:", addr)
+        resp_msg = f'{addr[0]}:{addr[1]}'
+        connectionSocket.sendall(resp_msg.encode())
+
+        connectionSocket.close()
             
 
 
-def client_tcp(host, port):
+def client(host, port):
     clientSocket = socket(AF_INET, SOCK_STREAM)
     clientSocket.connect((host, port))
     
