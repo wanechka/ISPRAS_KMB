@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     CONNECT_TYPE = PARSER.add_mutually_exclusive_group()
     CONNECT_TYPE.add_argument('-u', dest='udp_connect', action='store_true')
-    CONNECT_TYPE.add_argument('-t', dest='udp_connect', action='store_true')
+    CONNECT_TYPE.add_argument('-t', dest='tcp_connect', action='store_true')
 
     ARGS = PARSER.parse_args()
 
