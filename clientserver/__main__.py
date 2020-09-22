@@ -11,8 +11,10 @@ if __name__ == "__main__":
     parser.add_argument("ip", type=str)
     parser.add_argument("port", type=int)
 
-    parser.add_argument("-s", dest="server", action="store_true")
-    parser.add_argument("-c", dest="client", action="store_true")
+    connectRole = parser.add_mutually_exclusive_group()
+    connectRole.add_argument("-s", dest="server", action="store_true")
+    connectRole.add_argument("-c", dest="client", action="store_true")
+    
     parser.add_argument("-u", dest="udp_connect", action="store_true")
 
     args = parser.parse_args()

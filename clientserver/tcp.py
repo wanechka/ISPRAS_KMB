@@ -1,8 +1,8 @@
-from socket import *
+import socket as sk
 
 
 def server(host, port):
-    serverSocket = socket(AF_INET, SOCK_STREAM)
+    serverSocket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
     
     serverSocket.bind((host, port))
     serverSocket.listen(1)
@@ -19,7 +19,7 @@ def server(host, port):
 
 
 def client(host, port):
-    clientSocket = socket(AF_INET, SOCK_STREAM)
+    clientSocket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
     clientSocket.connect((host, port))
     
     message = clientSocket.recv(2048)
