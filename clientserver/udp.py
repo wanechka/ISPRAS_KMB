@@ -14,10 +14,24 @@ def server(host, port):
         server_socket.sendto(resp_msg.encode(), (addr[0], addr[1]))
 
 
+
 def client(host, port):
     client_socket = sk.socket(sk.AF_INET, sk.SOCK_DGRAM)
-    message = input('Input lowercacketse sentence:')
+    message = input('Input your sentence:')
     client_socket.sendto(message.encode(), (host, port))
+
+    answer_message = client_socket.recv(2048)
+    print('My address is ', answer_message.decode())
+
+    client_socket.close()
+
+
+
+def connect_client(host, port):
+    client_socket = sk.socket(sk.AF_INET, sk.SOCK_DGRAM)
+    client_socket.connect((host, port))
+    message = input('Input your sentence:')
+    client_socket.sendall(message.encode())
 
     answer_message = client_socket.recv(2048)
     print('My address is ', answer_message.decode())
