@@ -1,33 +1,35 @@
-﻿import tcp
+﻿import argparse
+
+import tcp
 import udp
 
-import argparse
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    PARSER = argparse.ArgumentParser()
 
-    parser.add_argument('ip', type=str)
-    parser.add_argument('port', type=int)
+    PARSER.add_argument('ip', type=str)
+    PARSER.add_argument('port', type=int)
 
-    connectRole = parser.add_mutually_exclusive_group()
-    connectRole.add_argument('-s', dest='server', action='store_true')
-    connectRole.add_argument('-c', dest='client', action='store_true')
+    CONNECT_ROLE = PARSER.add_mutually_exclusive_group()
+    CONNECT_ROLE.add_argument('-s', dest='server', action='store_true')
+    CONNECT_ROLE.add_argument('-c', dest='client', action='store_true')
 
-    parser.add_argument('-u', dest='udp_connect', action='store_true')
+    CONNECT_TYPE = PARSER.add_mutually_exclusive_group()
+    CONNECT_TYPE.add_argument('-u', dest='udp_connect', action='store_true')
+    CONNECT_TYPE.add_argument('-t', dest='udp_connect', action='store_true')
 
-    args = parser.parse_args()
+    ARGS = PARSER.parse_args()
 
-    host = args.ip
-    port = args.port
+    HOST = ARGS.ip
+    PORT = ARGS.port
 
-    if args.server:
-        if args.udp_connect:
-            udp.server(host, port)
+    if ARGS.server:
+        if ARGS.udp_connect:
+            udp.server(HOST, PORT)
         else:
-            tcp.server(host, port)
-
-    if args.client:
-        if args.udp_connect:
-            udp.client(host, port)
+            tcp.server(HOST, PORT)
+    else:
+        if ARGS.udp_connect:
+            udp.client(HOST, PORT)
         else:
-            tcp.client(host, port)
+            tcp.client(HOST, PORT)

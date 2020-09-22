@@ -1,27 +1,29 @@
-﻿import socket as sk
+﻿from __future__ import print_function
+
+import socket as sk
 
 
 def server(host, port):
-    serverSocket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
+    server_socket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
 
-    serverSocket.bind((host, port))
-    serverSocket.listen(1)
+    server_socket.bind((host, port))
+    server_socket.listen(1)
 
     while True:
-        (connectionSocket, addr) = serverSocket.accept()
+        (connection_socket, addr) = server_socket.accept()
 
-        print ('request from host:', addr)
+        print('request from host:', addr)
         resp_msg = f'{addr[0]}:{addr[1]}'
-        connectionSocket.sendall(resp_msg.encode())
+        connection_socket.sendall(resp_msg.encode())
 
-        connectionSocket.close()
+        connection_socket.close()
 
 
 def client(host, port):
-    clientSocket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
-    clientSocket.connect((host, port))
+    client_socket = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
+    client_socket.connect((host, port))
 
-    message = clientSocket.recv(2048)
-    print message.decode()
+    message = client_socket.recv(2048)
+    print(message.decode())
 
-    clientSocket.close()
+    client_socket.close()
