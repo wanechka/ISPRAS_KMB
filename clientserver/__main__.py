@@ -12,6 +12,8 @@ if __name__ == '__main__':
 
     PARSER.add_argument('-cn', dest='connect_udp', action='store_true')
 
+    PARSER.add_argument('-rs', dest='raw_socket', action='store_true')
+
     CONNECT_ROLE = PARSER.add_mutually_exclusive_group()
     CONNECT_ROLE.add_argument('-s', dest='server', action='store_true')
     CONNECT_ROLE.add_argument('-c', dest='client', action='store_true')
@@ -27,13 +29,18 @@ if __name__ == '__main__':
 
     if ARGS.server:
         if ARGS.udp_connect:
-            udp.server(HOST, PORT)
+            if ARGS.raw_socket:
+                udp.raw_server(HOST, PORT)
+            else:
+                udp.server(HOST, PORT)
         else:
             tcp.server(HOST, PORT)
     else:
         if ARGS.udp_connect:
             if ARGS.connect_udp:
                 udp.connect_client(HOST, PORT)
+            elif ARGS.raw_socket:
+                udp.raw_client(HOST, PORT)
             else:
                 udp.client(HOST, PORT)
         else:
