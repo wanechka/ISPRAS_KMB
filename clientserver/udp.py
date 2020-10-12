@@ -17,9 +17,9 @@ def server(host, port):
     while True:
         (message, addr) = server_socket.recvfrom(2048)
 
-        print('Message from ', "f'{addr[0]}:{addr[1]}'")
+        print('Message from ', f'{addr[0]}:{addr[1]}')
         print('Message text: ', message)
-        resp_msg = "f'{addr[0]}:{addr[1]}'"
+        resp_msg = f'{addr[0]}:{addr[1]}'
         server_socket.sendto(resp_msg.encode(), (addr[0], addr[1]))
 
 
@@ -40,7 +40,7 @@ def connect_client(host, port):
     client_socket = sk.socket(sk.AF_INET, sk.SOCK_DGRAM)
     client_socket.connect((host, port))
     message = input('Input your sentence:')
-    client_socket.sendall(message.encode())
+    client_socket.send(message.encode())
 
     answer_message = client_socket.recv(2048)
     print('My address is ', answer_message.decode())
@@ -66,20 +66,19 @@ def raw_server(host, port):
             length = UHL + len(data)
             udp_header = struct.pack('!HHHH', source_port, dest_port, length, checksum)
             server_socket.sendto(udp_header + data, (addr[0], addr[1]))
-            break
+            #break
 
 
 
 def raw_client(host, port):
     client_socket = sk.socket(sk.AF_INET, sk.SOCK_RAW, sk.IPPROTO_UDP)
-    client_socket.bind(('', 0))
     source_port = client_socket.getsockname()[1]
+    print("Current port of client side is ", source_port)
 
     data = C2S_MARKER + input('Input your message, please ')
     data = data.encode()
 
     dest_port = port
-    print(source_port)
     length = UHL + len(data)
     checksum = 0
     udp_header = struct.pack('!HHHH', source_port, dest_port, length, checksum)
